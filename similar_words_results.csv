@@ -1,0 +1,13 @@
+Keyword,TopN,Similar Words
+spor,1,futbol
+spor,3,"futbol, voleybol, gençlikspor"
+spor,10,"futbol, voleybol, gençlikspor, ghsim, dağcılık, ıbhof, polisgücü, boks, olimpik, basketbol"
+magazin,1,ntv
+magazin,3,"ntv, aktüalite, söyleşisi"
+magazin,10,"ntv, aktüalite, söyleşisi, tgrt, habertürk, birgün, fırt, aktüel, televole, skylife"
+siyaset,1,politika
+siyaset,3,"politika, siyaseti, sosyoloji"
+siyaset,10,"politika, siyaseti, sosyoloji, siyasette, ekonomi, din, hukuk, iktisat, diplomasi, toplum"
+ekonomi,1,iktisat
+ekonomi,3,"iktisat, finans, ekonomisi"
+ekonomi,10,"iktisat, finans, ekonomisi, makroekonomi, tarım, ekonominin, sosyoloji, ekonomide, bankacılık, işletme"

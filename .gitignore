@@ -1,0 +1,8 @@
+*.model
+/MTL_grouped 
+/NRC-VAD-Lexicon
+/trwiki-20240101-pages-articles .xml
+trwiki-20240101-pages-articles .xml.bz2
+*.npy
+*.txt
+trmodel
