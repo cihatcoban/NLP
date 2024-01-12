@@ -66,7 +66,7 @@ hazırlanan veriyi artık modelimizde kullanmaya hazırız.
 
 modelimizi eğitiğimize göre şimdi ufak bir test yapalım. Verilen kelimelere en çok benzeyen ilk 1, ilk 3 ve ilk 10 kelimeyi bu fonksiyon ile elde etmeye çalışalım.
 
-\`\`\`
+```
 
     model_path = "dosya_yolu\\turkish_word2vec_model.model"
     turkish_model = Word2Vec.load(model_path)
@@ -102,7 +102,7 @@ modelimizi eğitiğimize göre şimdi ufak bir test yapalım. Verilen kelimelere
             writer.writerow({'Keyword': result[0], 'TopN': result[1], 'Similar Words': result[2]})
     
     print(f"Sonuçlar CSV dosyasına {output_file} olarak kaydedildi.")
-\`\`\`
+```
 
 elde etiğimiz sonuçları görüntülemek için [Google](https://github.com/cihatcoban/NLP/blob/main/similar_words_results.csv) dan görüntüleyebilirsiniz.
 
@@ -113,7 +113,7 @@ NOT:Bu modellerin boyutlarını, kendi bilgisayarınızda veya Google Colab'da �
 Ayrıca [Google](https://github.com/piskvorky/gensim-data) adresini kontrol etmenizi de tavsiye ederim.
 Bu aşamadan sonra, verilen kelimelere en çok benzeyen ilk 1, ilk 3 ve ilk 10 kelimeyi bu fonksiyon ile elde etmeye çalışacağız.
 
-\`\`\`python
+```python
 import gensim.downloader as api
 import os
 from gensim.models import KeyedVectors
@@ -176,12 +176,12 @@ english_models_dict = {
 }
 
 print("Loaded all models.")
-\`\`\`
+```
  Bu kod ile ihtiyacımız olan tüm modellerin kurulum işlemleri yapıyor ve modeleri türkçe ve ingilizce olmak üzere iki farklı sözlük yapısı altında topluyoruz.
 
  Şimdi sıra geldi test işlemi yapmamız için kullanacağımız kelimeleri modeller bazında topn1 ,topn3, topn10 şeklinde vektörel değerlerini bastıralım.
  
-\`\`\`python
+```python
 test_words = {
     "sport": {
       "Türkçe": "spor",
@@ -239,7 +239,7 @@ else:
     pass
 
 df_results = pd.read_csv("results.csv")
-\`\`\`
+```
 Çıktılara göz gezdirmel için [Google](https://github.com/cihatcoban/NLP/blob/main/results.csv) adresini kontrol edebilirsiniz.
 
 ## 2. Aşama: Konotasyon Sözlüklerinin Kullanılması
@@ -254,7 +254,7 @@ Gerekli olan dökümanlara şu addresslerden ulaşabilirsiniz: [Google](https://
 
 Gerekli dosyaları da indirdiğimize göre artık kelimelerin dilde gelen duygusal değerlerinin  karşılığını ölçmeye çalışacağız.
 ilk olarak elimizde bulunan lexiconları birleştirelim ve verimizi tek çatı altında csv şeklinde kullanalım.
-\`\`\`python
+```python
 import os
 from collections import Counter
 from itertools import chain
@@ -298,11 +298,11 @@ with open(corpusFile, 'r', encoding='utf-8') as f:
     corpusSeries = pd.Series(f.readlines())
     corpusFreq = get_word_freq(corpusSeries)
     print(corpusFreq.most_common(10))
-\`\`\`
+```
  Oluşan csc dosyasını : [Google](https://github.com/cihatcoban/NLP/blob/main/my_Lexicon.csv) adresinden inceleyebilirsiniz.
 
  Son olarak verimizi kullanalım ve karşılaştırma işlemlerini tamamlayalım.
- \`\`\`python
+ ```python
 lex = pd.read_csv(
     "my_Lexicon.csv", 
     delimiter = ",", 
@@ -359,5 +359,5 @@ for index, row in df_results.iterrows():
           counter+=1
     counter+=1
 comperatation.to_csv("comperatation.csv", index=False)
-\`\`\`
+```
  Elde etiğimiz son değerlendirmeye göz atmak için : [Google](https://github.com/cihatcoban/NLP/blob/main/comperatation.csv) adresini inceleye bilirsiniz .
