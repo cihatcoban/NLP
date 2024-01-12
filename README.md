@@ -7,14 +7,6 @@ Bu projede, Türkçe Word2Vec modelini geliştireceğiz ve konotasyon sözlükle
 Bu işlem için bu [Google](https://github.com/akoksal/Turkish-Word2Vec/wiki/)  adımları takip edeceğiz. 
 Haydi Wikipedia dump da aldığımız veriyi kullanarak modelimizi eğitmeden önce verimizi türkçe dilyapısa uyacak bir hale gelmesi için verimizle biraz ilgilenelim.
 \`\`\`python
-    from gensim.corpora import WikiCorpus
-    from gensim.models import Word2Vec
-    from multiprocessing import cpu_count
-    from gensim import utils
-    import logging
-    import os
-    import warnings
-    warnings.filterwarnings("ignore", category=UserWarning, module="gensim.utils")
     
     # Türkçe tokenleştirme fonksiyonu
     def tokenize_tr(content, token_min_len=2, token_max_len=50, lower=True):
@@ -61,59 +53,55 @@ Kodummuzda görüldüğü üzere türkçe tokenize etme işlemi yaptıktan sonra
 ve ardından "wiki.tr.txt" adında bir dosyaya hazır veriyi kayıt ediyoruz.
 hazırlanan veriyi artık modelimizde kullanmaya hazırız.
 \`\`\`python
-from gensim.models import Word2Vec
-from gensim.models.word2vec import LineSentence
-
-# wiki.tr.txt çıktı dosyasından satırları okuma
-sentences = list(LineSentence('dosya_yolu\\wiki.tr.txt'))
-
-# Word2Vec modelini eğitelim
-model = Word2Vec(sentences=sentences, vector_size=300, window=5, min_count=5, workers=4)
-
-# Eğitilen modeli kaydedelim
-model.wv.save_word2vec_format("dosya_yolu\\turkish_word2vec_model.model", binary=True)
+    
+    # wiki.tr.txt çıktı dosyasından satırları okuma
+    sentences = list(LineSentence('dosya_yolu\\wiki.tr.txt'))
+    
+    # Word2Vec modelini eğitelim
+    model = Word2Vec(sentences=sentences, vector_size=300, window=5, min_count=5, workers=4)
+    
+    # Eğitilen modeli kaydedelim
+    model.wv.save_word2vec_format("dosya_yolu\\turkish_word2vec_model.model", binary=True)
 \`\`\`
 
 modelimizi eğitiğimize göre şimdi ufak bir test yapalım. Verilen kelimelere en çok benzeyen ilk 1, ilk 3 ve ilk 10 kelimeyi bu fonksiyon ile elde etmeye çalışalım.
 
 \`\`\`python
-from gensim.models import Word2Vec
-import csv
 
-model_path = "dosya_yolu\\turkish_word2vec_model.model"
-turkish_model = Word2Vec.load(model_path)
-
-# İlgili kelimeler
-keywords = ['spor', 'magazin', 'siyaset', 'ekonomi']
-
-# Sonuçları saklamak için bir liste
-results = []
-
-# Her kelime için topn=1, topn=3 ve topn=10 durumlarını inceleyelim
-for keyword in keywords:
-    # Topn=1
-    top1_similar = turkish_model.wv.most_similar(keyword, topn=1)
-    results.append((keyword, 1, top1_similar[0][0]))
-
-    # Topn=3
-    top3_similar = turkish_model.wv.most_similar(keyword, topn=3)
-    results.append((keyword, 3, ', '.join([word[0] for word in top3_similar])))
-
-    # Topn=10
-    top10_similar = turkish_model.wv.most_similar(keyword, topn=10)
-    results.append((keyword, 10, ', '.join([word[0] for word in top10_similar])))
-
-# Sonuçları CSV dosyasına yazma
-output_file = "dosya_yolu\\similar_words_results.csv"
-with open(output_file, 'w', newline='', encoding='utf-8') as csvfile:
-    fieldnames = ['Keyword', 'TopN', 'Similar Words']
-    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+    model_path = "dosya_yolu\\turkish_word2vec_model.model"
+    turkish_model = Word2Vec.load(model_path)
     
-    writer.writeheader()
-    for result in results:
-        writer.writerow({'Keyword': result[0], 'TopN': result[1], 'Similar Words': result[2]})
-
-print(f"Sonuçlar CSV dosyasına {output_file} olarak kaydedildi.")
+    # İlgili kelimeler
+    keywords = ['spor', 'magazin', 'siyaset', 'ekonomi']
+    
+    # Sonuçları saklamak için bir liste
+    results = []
+    
+    # Her kelime için topn=1, topn=3 ve topn=10 durumlarını inceleyelim
+    for keyword in keywords:
+        # Topn=1
+        top1_similar = turkish_model.wv.most_similar(keyword, topn=1)
+        results.append((keyword, 1, top1_similar[0][0]))
+    
+        # Topn=3
+        top3_similar = turkish_model.wv.most_similar(keyword, topn=3)
+        results.append((keyword, 3, ', '.join([word[0] for word in top3_similar])))
+    
+        # Topn=10
+        top10_similar = turkish_model.wv.most_similar(keyword, topn=10)
+        results.append((keyword, 10, ', '.join([word[0] for word in top10_similar])))
+    
+    # Sonuçları CSV dosyasına yazma
+    output_file = "dosya_yolu\\similar_words_results.csv"
+    with open(output_file, 'w', newline='', encoding='utf-8') as csvfile:
+        fieldnames = ['Keyword', 'TopN', 'Similar Words']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        
+        writer.writeheader()
+        for result in results:
+            writer.writerow({'Keyword': result[0], 'TopN': result[1], 'Similar Words': result[2]})
+    
+    print(f"Sonuçlar CSV dosyasına {output_file} olarak kaydedildi.")
 \`\`\`
 
 elde etiğimiz sonuçları görüntülemek için [Google](https://github.com/cihatcoban/NLP/blob/main/similar_words_results.csv) dan görüntüleyebilirsiniz.
