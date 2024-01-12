@@ -6,7 +6,7 @@ Bu projede, Türkçe Word2Vec modelini geliştireceğiz ve konotasyon sözlükle
 İlk olarak, Gensim kütüphanesi [Google](https://radimrehurek.com/gensim/) kullanılarak  Wikipedia dump  [Google]( https://dumps.wikimedia.org/trwiki/) üzerinde Türkçe Word2Vec modelini geliştireceğiz.
 Bu işlem için bu [Google](https://github.com/akoksal/Turkish-Word2Vec/wiki/)  adımları takip edeceğiz. 
 Haydi Wikipedia dump da aldığımız veriyi kullanarak modelimizi eğitmeden önce verimizi türkçe dilyapısa uyacak bir hale gelmesi için verimizle biraz ilgilenelim.
-\`\`\`python
+\`\`\`
     
     # Türkçe tokenleştirme fonksiyonu
     def tokenize_tr(content, token_min_len=2, token_max_len=50, lower=True):
@@ -52,7 +52,7 @@ Haydi Wikipedia dump da aldığımız veriyi kullanarak modelimizi eğitmeden ö
 Kodummuzda görüldüğü üzere türkçe tokenize etme işlemi yaptıktan sonra Wikipedia dump dosyasını işleme ve temizlenmiş metni çıkış dosyasına yazma işlemi yapıyor 
 ve ardından "wiki.tr.txt" adında bir dosyaya hazır veriyi kayıt ediyoruz.
 hazırlanan veriyi artık modelimizde kullanmaya hazırız.
-\`\`\`python
+\`\`\`
     
     # wiki.tr.txt çıktı dosyasından satırları okuma
     sentences = list(LineSentence('dosya_yolu\\wiki.tr.txt'))
@@ -66,7 +66,7 @@ hazırlanan veriyi artık modelimizde kullanmaya hazırız.
 
 modelimizi eğitiğimize göre şimdi ufak bir test yapalım. Verilen kelimelere en çok benzeyen ilk 1, ilk 3 ve ilk 10 kelimeyi bu fonksiyon ile elde etmeye çalışalım.
 
-\`\`\`python
+\`\`\`
 
     model_path = "dosya_yolu\\turkish_word2vec_model.model"
     turkish_model = Word2Vec.load(model_path)
