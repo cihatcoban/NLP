@@ -1,0 +1,11 @@
+# Production dependencies (compatible with Python 3.9 through 3.14+)
+pandas>=2.0.0
+numpy>=1.24.0
+pyyaml>=6.0
+pydantic>=2.0.0
+click>=8.1.0
+tqdm>=4.65.0
+
+# Gensim C-extensions only compile on Python < 3.13.
+# On Python 3.13/3.14+, Pure-NumPy Word2Vec engine runs automatically.
+gensim>=4.3.0; python_version < '3.13'
