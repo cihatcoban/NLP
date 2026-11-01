@@ -7,8 +7,6 @@
 
 Bu proje, Türkçe Vikipedi dökümü (Wikipedia dump) üzerinde **Word2Vec** kelime gömme (word embedding) modelinin eğitilmesi ve elde edilen anlamsal komşulukların **NRC-VAD** ve **MEmoLon** konotasyon sözlükleri (Valence, Arousal, Dominance ve temel duygular: Neşe, Öfke, Üzüntü, Korku, İğrenme) üzerinden çok boyutlu analizini gerçekleştiren **üretim seviyesinde (production-grade)** bir Doğal Dil İşleme (NLP) kütüphanesidir.
 
-> **Mimari Not**: Bu depo, öğrenci döneminde yazılmış tekil ve düzensiz betiklerin, **Keystone Mühendislik Prensipleri** (katmanlı mimari, bellek akışı, $O(N)$ vektörel birleştirmeler, tip güvenliği ve kapsamlı test takımı) uygulanarak kıdemli bir yazılım mimarı gözüyle baştan inşa edilmiş halidir.
-
 ---
 
 ## 🏗️ Mimari ve Dizin Yapısı (`src-layout`)
