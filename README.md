@@ -44,20 +44,6 @@ nlp-connotation/
 
 ---
 
-## ⚡ Kıdemli Refaktoring Analizi (Öncesi vs. Sonrası)
-
-| Alan | Öğrenci Kodu (Eski Hali) | Kıdemli / Keystone Mimarisi (Yeni Hali) |
-| :--- | :--- | :--- |
-| **Dosya Yolları** | Sabitlenmiş Windows yolları (`C:\Users\cihat\...`) | `pathlib.Path` ve YAML/CLI parametrik yapılandırması |
-| **Sözlük Birleştirme** | $O(N \cdot M)$ `df.iterrows()` iç içe döngüsü (~15 dakika) | $O(N)$ Hash-join (`pd.merge`) ($<100\text{ ms}$) |
-| **Bellek Yönetimi** | `list(LineSentence(...))` ile GB'larca veriyi RAM'e yükleme ($OOM$) | `CorpusSentenceIterator` ile satır satır akış ($O(1)$ RAM) |
-| **Türkçe Karakter** | Temel replace haritası (noktalı/noktasız I hataları) | Unicode NFC normalizasyonu ve hatasız Türkçe küçültme |
-| **Hata Yönetimi** | Tanımsız fonksiyonlar (`get_word_freq`), sessiz çökmeler | Hiyerarşik `NLPConnotationError` ve bağlamsal loglama |
-| **Model Erişimi** | Farklı modellere dağınık kod blokları | `BaseModelAdapter` ile ortak sözlük ve benzerlik arayüzü |
-| **Eksik Kelime Hesabı** | Sözlükte olmayan kelimelerin göz ardı edilmesinde belirsizlik | `requested_k` vs `found_k` açık raporlaması ve doğru ortalama |
-| **Test & Kalite** | Sıfır test, sıfır tip tanımı | Kapsamlı birim testleri, type hinting, linter ve Makefile |
-
----
 
 ## 🚀 Hızlı Başlangıç
 
